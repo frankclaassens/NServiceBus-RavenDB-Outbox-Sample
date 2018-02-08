@@ -11,9 +11,10 @@ namespace Shipping.Handlers
 	public class OrderCreatedHandler : IHandleMessages<OrderCreated>
 	{
 		private readonly IBus _bus;
-		private readonly ISessionProvider _session;
+		//private readonly ISessionProvider _session;
+		private readonly IDocumentSession _session;
 
-		public OrderCreatedHandler(ISessionProvider session, IBus bus)
+		public OrderCreatedHandler(IDocumentSession session, IBus bus)
 		{
 			_session = session;
 			this._bus = bus;
@@ -21,8 +22,6 @@ namespace Shipping.Handlers
 
 		public void Handle(OrderCreated message)
 		{
-			var order = _session.Session.Load<CreateOrder>(message.OrderId);
-
 			var shippingList = new CreateShippingList
 			{
 				OrderId = message.OrderId,

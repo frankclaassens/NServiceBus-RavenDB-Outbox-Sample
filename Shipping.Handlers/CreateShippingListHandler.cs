@@ -1,7 +1,4 @@
-﻿using System;
-using NServiceBus;
-using NServiceBus.RavenDB.Persistence;
-using Orders.Events;
+﻿using NServiceBus;
 using Raven.Client;
 using Shipping.Commands;
 
@@ -9,18 +6,17 @@ namespace Shipping.Handlers
 {
 	public class CreateShippingListHandler : IHandleMessages<CreateShippingList>
 	{
-		private readonly IBus _bus;
-		private readonly ISessionProvider _session;
+		//private readonly ISessionProvider _session;
+		private readonly IDocumentSession _session;
 
-		public CreateShippingListHandler(ISessionProvider session, IBus bus)
+		public CreateShippingListHandler(IDocumentSession session, IBus bus)
 		{
 			_session = session;
-			this._bus = bus;
 		}
 
 		public void Handle(CreateShippingList message)
 		{
-			_session.Session.Store(message);			
+			_session.Store(message);			
 		}
 	}
 }
