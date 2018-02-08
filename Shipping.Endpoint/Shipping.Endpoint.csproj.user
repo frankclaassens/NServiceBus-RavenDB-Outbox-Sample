@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Users\frank\Documents\Visual Studio 2015\Projects\OutboxSample\Shipping.Endpoint\bin\Debug\NServiceBus.Host.exe</StartProgram>
+    <StartProgram>C:\Workspace\Git\NServiceBus-RavenDB-Outbox-Sample\Shipping.Endpoint\bin\Debug\NServiceBus.Host.exe</StartProgram>
     <StartArguments>nservicebus.integration nservicebus.msmq</StartArguments>
   </PropertyGroup>
 </Project>
