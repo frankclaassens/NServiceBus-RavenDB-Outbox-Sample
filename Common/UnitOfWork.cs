@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Transactions;
 using NServiceBus;
 using NServiceBus.RavenDB.Persistence;
 using NServiceBus.UnitOfWork;
-using Raven.Client;
 
 namespace Common
 {
@@ -109,11 +107,7 @@ namespace Common
 				throw unitOfWorkException;
 			}
 		}
-
-		/// <summary>
-		/// If raven reaches the maximum number of session requests during the commitment of a transaction then it locks out the files
-		/// referenced within that session for a period of time.  This method proactively guards against this scenario.
-		/// </summary>
+		
 		private void ValidateRequestCount(string enclosedMessageTypes)
 		{
 			var currentNumberOfRequests = _sessionProvider.Session.Advanced.NumberOfRequests;
@@ -193,51 +187,51 @@ namespace Common
 
 		private void AddProcessEvent(Guid processId, string[] events)
 		{
-			if (!events.Any())
-			{
-				return;
-			}
+			//if (!events.Any())
+			//{
+			//	return;
+			//}
 
-			using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
-			{
-				ProcessHelpers.RegisterProcessEvent(processId, events, newSession);
-				newSession.SaveChanges();
-			}
+			//using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
+			//{
+			//	ProcessHelpers.RegisterProcessEvent(processId, events, newSession);
+			//	newSession.SaveChanges();
+			//}
 		}
 
 		private void AddProcessStatus(Guid processId, bool firstInProcess, int outgoingCount)
 		{
-			int processDelta = firstInProcess ? 0 : -1;
-			processDelta += outgoingCount;
+			//int processDelta = firstInProcess ? 0 : -1;
+			//processDelta += outgoingCount;
 
-			if (!firstInProcess && processDelta == 0)
-			{
-				return;
-			}
+			//if (!firstInProcess && processDelta == 0)
+			//{
+			//	return;
+			//}
 
-			using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
-			{
-				ProcessHelpers.RegisterProcessStatus(processId, processDelta, newSession);
-				newSession.SaveChanges();
-			}
+			//using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
+			//{
+			//	ProcessHelpers.RegisterProcessStatus(processId, processDelta, newSession);
+			//	newSession.SaveChanges();
+			//}
 		}
 
 		private void AddErrorProcessEvent(Guid processId, string errorMessage)
 		{
-			using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
-			{
-				ProcessHelpers.RegisterErrorProcessEvent(processId, errorMessage, _bus, newSession);
-				newSession.SaveChanges();
-			}
+			//using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
+			//{
+			//	ProcessHelpers.RegisterErrorProcessEvent(processId, errorMessage, _bus, newSession);
+			//	newSession.SaveChanges();
+			//}
 		}
 
 		private void AddErrorProcessStatus(Guid processId, string errorMessage)
 		{
-			using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
-			{
-				ProcessHelpers.RegisterErrorProcessStatus(processId, errorMessage, _bus, newSession);
-				newSession.SaveChanges();
-			}
+			//using (IDocumentSession newSession = _sessionProvider.Session.Advanced.DocumentStore.OpenSession())
+			//{
+			//	ProcessHelpers.RegisterErrorProcessStatus(processId, errorMessage, _bus, newSession);
+			//	newSession.SaveChanges();
+			//}
 		}
 	}
 }

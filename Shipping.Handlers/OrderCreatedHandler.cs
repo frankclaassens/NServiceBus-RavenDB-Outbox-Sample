@@ -20,10 +20,12 @@ namespace Shipping.Handlers
 
 		protected override void HandleImpl(OrderCreated message)
 		{
-			var shippingList = new CreateShippingList
-			{
-				OrderId = message.OrderId,
-			};
+			var order = RavenSession.Session.Load<CreateOrder>(message.OrderId);
+
+			//var shippingList = new CreateShippingList
+			//{
+			//	OrderId = message.OrderId,
+			//};
 
 			//Bus.Send(shippingList);
 		}

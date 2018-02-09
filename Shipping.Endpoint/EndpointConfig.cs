@@ -55,8 +55,9 @@ namespace Shipping.Endpoint
 
 			var persistance = configuration.UsePersistence<RavenDBPersistence>();
 			persistance.SetDefaultDocumentStore(documentStore).DoNotSetupDatabasePermissions();
+			persistance.UseDocumentStoreForSagas(documentStore);
 			persistance.UseDocumentStoreForSubscriptions(subscriptionDocumentStore);
-
+			
 			//Ioc bootstrap
 			var container = new Container();
 
@@ -78,16 +79,14 @@ namespace Shipping.Endpoint
 		{
 			container.Configure(x =>
 			{
-				//x.For<IManageUnitsOfWork>().Use<UnitOfWork>();
+				x.For<IManageUnitsOfWork>().LifecycleIs(new ContainerLifecycle()).Use<UnitOfWork>();
 
 				x.ForSingletonOf<IDocumentStore>().LifecycleIs(new ContainerLifecycle()).Use(documentStore);
-				//x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<IDocumentStore>().OpenSession());
-				x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<ISessionProvider>().Session);
+				x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<ISessionProvider>().Session).AlwaysUnique();
 
 				x.Policies.SetAllProperties(t => t.OfType<IDocumentSession>());
 				x.Policies.SetAllProperties(t => t.OfType<IBus>());
 			});
-
 		}
 
 		private IDocumentStore CreateDocumentStore()

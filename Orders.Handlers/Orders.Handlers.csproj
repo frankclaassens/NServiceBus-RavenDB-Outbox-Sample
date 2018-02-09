@@ -77,6 +77,10 @@
       <Project>{F8B99C38-755D-4167-89EB-EEE9F2C812BA}</Project>
       <Name>Orders.Events</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shipping.Commands\Shipping.Commands.csproj">
+      <Project>{B7A3D9EF-61DA-4A09-89A0-CF146F48573E}</Project>
+      <Name>Shipping.Commands</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

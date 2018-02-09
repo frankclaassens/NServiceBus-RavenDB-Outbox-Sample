@@ -12,6 +12,7 @@ using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.UniqueConstraints;
 using StructureMap;
+using StructureMap.Pipeline;
 
 namespace Orders.Endpoint
 {
@@ -82,17 +83,14 @@ namespace Orders.Endpoint
 		{
 			container.Configure(x =>
 			{
-				//x.For<IManageUnitsOfWork>().Use<UnitOfWork>();
+				x.For<IManageUnitsOfWork>().LifecycleIs(new ContainerLifecycle()).Use<UnitOfWork>();
 
-				// Raven registry
 				x.ForSingletonOf<IDocumentStore>().Use(documentStore);
-				//x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<IDocumentStore>().OpenSession());
-				x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<ISessionProvider>().Session);
+				x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<ISessionProvider>().Session).AlwaysUnique();
 
 				x.Policies.SetAllProperties(t => t.OfType<IDocumentSession>());
 				x.Policies.SetAllProperties(t => t.OfType<IBus>());
 			});
-
 		}
 
 		private IDocumentStore CreateDocumentStore()

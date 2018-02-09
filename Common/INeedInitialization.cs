@@ -9,7 +9,7 @@ namespace Common
 		public void Customize(BusConfiguration busConfiguration)
 		{
 			//busConfiguration.RegisterComponents(e => e.ConfigureComponent<>(DependencyLifecycle.InstancePerCall));
-			busConfiguration.RegisterComponents(e => e.ConfigureComponent<UnitOfWork>(DependencyLifecycle.InstancePerUnitOfWork));			
+			//busConfiguration.RegisterComponents(e => e.ConfigureComponent<UnitOfWork>(DependencyLifecycle.InstancePerUnitOfWork));			
 		}
 	}
 }
