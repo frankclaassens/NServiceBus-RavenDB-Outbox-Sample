@@ -85,7 +85,7 @@ namespace Shipping.Endpoint
 				x.For<IDocumentStore>().LifecycleIs(new ContainerLifecycle()).Use(documentStore);
 				//x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<ISessionProvider>().Session).AlwaysUnique();
 
-				x.Policies.SetAllProperties(t => t.OfType<IDocumentSession>());
+				//x.Policies.SetAllProperties(t => t.OfType<IDocumentSession>());
 				//x.Policies.SetAllProperties(t => t.OfType<IBus>());
 			});
 		}
