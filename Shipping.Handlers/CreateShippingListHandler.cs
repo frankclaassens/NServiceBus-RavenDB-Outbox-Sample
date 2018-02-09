@@ -1,22 +1,22 @@
-﻿using NServiceBus;
+﻿using Common;
+using NServiceBus;
 using Raven.Client;
 using Shipping.Commands;
 
 namespace Shipping.Handlers
 {
-	public class CreateShippingListHandler : IHandleMessages<CreateShippingList>
+	public class CreateShippingListHandler : MessageHandlerBase<CreateShippingList>
 	{
 		//private readonly ISessionProvider _session;
-		private readonly IDocumentSession _session;
+		//private readonly IDocumentSession _session;
 
-		public CreateShippingListHandler(IDocumentSession session, IBus bus)
+		public CreateShippingListHandler( IBus bus)
 		{
-			_session = session;
 		}
 
-		public void Handle(CreateShippingList message)
+		protected override void HandleImpl(CreateShippingList message)
 		{
-			_session.Store(message);			
+			RavenSession.Session.Store(message);
 		}
 	}
 }

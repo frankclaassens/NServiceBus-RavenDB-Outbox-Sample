@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
+using Common;
 using log4net.Config;
 using NServiceBus;
 using NServiceBus.Log4Net;
 using NServiceBus.Logging;
 using NServiceBus.Persistence;
 using NServiceBus.RavenDB.Persistence;
+using NServiceBus.UnitOfWork;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.UniqueConstraints;
@@ -43,7 +45,7 @@ namespace Orders.Endpoint
 
 			SetupConventions(configuration);
 
-			//Bus persistence bootstrap
+			//Subscription document store
 			var subscriptionDocumentStore = new DocumentStore
 			{
 				ConnectionStringName = "NServiceBus.Persistence",
@@ -52,6 +54,7 @@ namespace Orders.Endpoint
 			};
 			subscriptionDocumentStore.Initialize();
 
+			// Business data document store 
 			var documentStore = CreateDocumentStore();
 
 			var persistance = configuration.UsePersistence<RavenDBPersistence>();
@@ -87,6 +90,7 @@ namespace Orders.Endpoint
 				x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<ISessionProvider>().Session);
 
 				x.Policies.SetAllProperties(t => t.OfType<IDocumentSession>());
+				x.Policies.SetAllProperties(t => t.OfType<IBus>());
 			});
 
 		}

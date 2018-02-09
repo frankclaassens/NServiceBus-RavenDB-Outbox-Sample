@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.App", "Console.App\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Endpoint", "Orders.Endpoint\Orders.Endpoint.csproj", "{A8ED3C47-5C9A-4F95-85E3-3E922E90DCEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{5155600E-4FA5-46EB-ADA0-E7FB845F1D82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{A8ED3C47-5C9A-4F95-85E3-3E922E90DCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8ED3C47-5C9A-4F95-85E3-3E922E90DCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8ED3C47-5C9A-4F95-85E3-3E922E90DCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5155600E-4FA5-46EB-ADA0-E7FB845F1D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5155600E-4FA5-46EB-ADA0-E7FB845F1D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5155600E-4FA5-46EB-ADA0-E7FB845F1D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5155600E-4FA5-46EB-ADA0-E7FB845F1D82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

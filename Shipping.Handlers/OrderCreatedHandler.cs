@@ -1,4 +1,5 @@
 ﻿using System;
+using Common;
 using NServiceBus;
 using NServiceBus.RavenDB.Persistence;
 using Orders.Commands;
@@ -8,26 +9,23 @@ using Shipping.Commands;
 
 namespace Shipping.Handlers
 {
-	public class OrderCreatedHandler : IHandleMessages<OrderCreated>
+	public class OrderCreatedHandler : MessageHandlerBase<OrderCreated>
 	{
-		private readonly IBus _bus;
 		//private readonly ISessionProvider _session;
-		private readonly IDocumentSession _session;
+		//private readonly IDocumentSession _session;
 
-		public OrderCreatedHandler(IDocumentSession session, IBus bus)
+		public OrderCreatedHandler(IBus bus)
 		{
-			_session = session;
-			this._bus = bus;
 		}
 
-		public void Handle(OrderCreated message)
+		protected override void HandleImpl(OrderCreated message)
 		{
 			var shippingList = new CreateShippingList
 			{
 				OrderId = message.OrderId,
 			};
 
-			_bus.Send(shippingList);
+			//Bus.Send(shippingList);
 		}
 	}
 }

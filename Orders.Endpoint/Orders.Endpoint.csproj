@@ -112,6 +112,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{5155600e-4fa5-46eb-ada0-e7fb845f1d82}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orders.Commands\Orders.Commands.csproj">
       <Project>{84d5230f-0def-47a5-ace9-7446afafb54b}</Project>
       <Name>Orders.Commands</Name>

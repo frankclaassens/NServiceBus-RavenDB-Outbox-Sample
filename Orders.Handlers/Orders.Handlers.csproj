@@ -65,6 +65,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{5155600E-4FA5-46EB-ADA0-E7FB845F1D82}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orders.Commands\Orders.Commands.csproj">
       <Project>{84D5230F-0DEF-47A5-ACE9-7446AFAFB54B}</Project>
       <Name>Orders.Commands</Name>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Common;
 using NServiceBus;
 using Orders.Commands;
 using Orders.Events;
@@ -7,23 +8,20 @@ using Raven.Client;
 
 namespace Orders.Handlers
 {
-	public class CreateOrderHandler : IHandleMessages<CreateOrder>
+	public class CreateOrderHandler : MessageHandlerBase<CreateOrder>
 	{
-		private readonly IBus _bus;
 		//private readonly ISessionProvider _session;
-		private readonly IDocumentSession _session;
+		//private readonly IDocumentSession _session;
 
-		public CreateOrderHandler(IDocumentSession session, IBus bus)
+		public CreateOrderHandler()
 		{
-			_session = session;
-			this._bus = bus;
 		}
 
-		public void Handle(CreateOrder message)
+		protected override void HandleImpl(CreateOrder message)
 		{
-			_session.Store(message);
+			RavenSession.Session.Store(message);
 
-			_bus.Publish(new OrderCreated { OrderId = message.Id });
+			//_bus.Publish(new OrderCreated { OrderId = message.Id });
 		}
 	}
 }

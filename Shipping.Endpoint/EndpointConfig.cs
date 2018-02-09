@@ -1,13 +1,16 @@
 using System;
 using System.Linq;
+using Common;
 using log4net.Config;
 using NServiceBus;
 using NServiceBus.Persistence;
 using NServiceBus.RavenDB.Persistence;
+using NServiceBus.UnitOfWork;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.UniqueConstraints;
 using StructureMap;
+using StructureMap.Pipeline;
 
 namespace Shipping.Endpoint
 {
@@ -77,12 +80,12 @@ namespace Shipping.Endpoint
 			{
 				//x.For<IManageUnitsOfWork>().Use<UnitOfWork>();
 
-				// Raven registry
-				x.ForSingletonOf<IDocumentStore>().Use(documentStore);
+				x.ForSingletonOf<IDocumentStore>().LifecycleIs(new ContainerLifecycle()).Use(documentStore);
 				//x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<IDocumentStore>().OpenSession());
 				x.For<IDocumentSession>().Use(ctx => ctx.GetInstance<ISessionProvider>().Session);
 
 				x.Policies.SetAllProperties(t => t.OfType<IDocumentSession>());
+				x.Policies.SetAllProperties(t => t.OfType<IBus>());
 			});
 
 		}
